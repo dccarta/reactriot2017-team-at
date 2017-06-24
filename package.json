@@ -20,6 +20,7 @@
     "react-vr": "~1.2.0",
     "react-vr-web": "~1.2.0",
     "redux": "^3.7.0",
+    "redux-devtools-extension": "^2.13.2",
     "three": "^0.80.1"
   },
   "devDependencies": {

@@ -6,3 +6,5 @@ node_modules/
 build/
 !docs/build/
 !docs/build/*.js.meta
+*.iml
+*.idea
