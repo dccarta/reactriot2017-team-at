@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'
 import {
   asset,
   Pano,
   Text,
   View,
   Box,
-  PointLight
-} from 'react-vr';
+  PointLight,
+  NativeModules
+} from 'react-vr'
 import { connect } from 'react-redux'
 
 import BundleObject from './BundleObject'
@@ -38,7 +39,7 @@ class BundleDungeon extends React.Component {
 
   render() {
     return (
-      <View>
+      <View onInput={movementControls}>
         <Pano source={asset('space.jpg')}/>
         <PointLight decay={2} intensity={2.6}/>
         {/* <Text
@@ -68,6 +69,30 @@ class BundleDungeon extends React.Component {
     );
   }
 };
+
+ const moveCamera = (x, y, z) => {
+   NativeModules.TeleportModule.teleportCamera(x, y, z);
+ }
+
+ const movementControls=(event)=>{
+   if(event.nativeEvent.inputEvent.type === 'KeyboardInputEvent' && event.nativeEvent.inputEvent.eventType === 'keypress'){
+      const keyCode = event.nativeEvent.inputEvent.code
+      const cameraMoveAmount= 5
+
+      if (keyCode === 'KeyW') { //W
+        moveCamera(0, 0, -cameraMoveAmount)
+      }
+      else if (keyCode === 'KeyA') { //A
+        moveCamera(-cameraMoveAmount, 0, 0)
+      }
+      else if (keyCode === 'KeyS') { //S
+        moveCamera(0, 0, cameraMoveAmount)
+      }
+      else if (keyCode === 'KeyD') { //D
+        moveCamera(cameraMoveAmount, 0, 0)
+      }
+   }
+ }
 
 const getZ = rotate => 0 - rotate
 

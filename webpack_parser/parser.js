@@ -5,5 +5,6 @@ export const getListOfBundles = (jsonOutput: {assets: Array<Asset>}) => jsonOutp
 
 export const getTranslationInformationForChunk = (chunkNumber: number, totalNumberOfChunks: number) => {
     const degreeIncrement: number = 180 / totalNumberOfChunks
+
     return chunkNumber * degreeIncrement
 }
