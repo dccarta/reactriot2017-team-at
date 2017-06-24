@@ -4,7 +4,8 @@ import {
   Pano,
   Text,
   View,
-  Box
+  Box,
+  Sphere
 } from 'react-vr';
 import { getTranslationInformationForChunk } from '../../webpack_parser/parser'
 
@@ -13,23 +14,25 @@ export default class BundleObject extends React.Component {
     super(props)
     const { name, size, chunks, chunkNames, emitted } = props
 
-    this.state = {
+    this.initialState = {
       size: size / 10,
       xPos: 0,
       yPos: random(),
       zPos: -200,
       yRotate: getTranslationInformationForChunk(chunks[0], 4),
-      lit: true
+      lit: true,
+      colour: '#00ffff'
     }
+
+    this.state = { ...this.initialState }
   }
 
   render() {
-    const { name, chunks, chunkNames, emitted } = this.props
-    const { size, xPos, yPos, zPos, yRotate, lit } = this.state
-    return (<View>
+    const { name, chunks, chunkNames, emitted, rotate, orbit } = this.props
+    const { size, xPos, yPos, zPos, yRotate, lit, colour } = this.state
+    return (<View onEnter={() => this.setState({ colour: '#7fff00' })} onExit={() => this.setState({ colour: this.initialState.colour })} >
       <Text style={{
-          backgroundColor: '#7b68ee',
-          transform: [{ rotateY: yRotate }, { translate: [xPos, yPos, zPos + size + 10] }],
+          transform: [{ rotateY : orbit }, { rotateY: yRotate }, { translate: [xPos, yPos, zPos + size + 10] }],
           textAlign: 'center',
           textAlignVertical: 'center',
           fontSize: 0.5 * size,
@@ -37,12 +40,12 @@ export default class BundleObject extends React.Component {
       }}>
         {name}
       </Text>
-      <Box
-        dimWidth={size}
-        dimHeight={size}
-        dimDepth={size}
+      <Sphere
+        radius={size}
+        widthSegments={200}
+        heightSegments={200}
         lit={lit}
-        style={{ color: '#00ffff', transform: [{ rotateY: yRotate }, { translate: [xPos, yPos, zPos] }] }}
+        style={{ color: colour, transform: [{ rotateY : orbit }, { rotateY: yRotate }, { translate: [xPos, yPos, zPos] }, { rotateY : rotate }] }}
       />
     </View>)
   }

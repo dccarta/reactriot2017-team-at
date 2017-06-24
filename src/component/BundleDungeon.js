@@ -15,11 +15,25 @@ class BundleDungeon extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { rotate : 0 }
+    this.state = { rotate : 0, orbit : 0 }
   }
 
   componentDidMount() {
-    setInterval(() => this.setState({ rotate : this.state.rotate + 1 }), 100)
+    setInterval(() => {
+      if (this.state.rotate === 360) {
+        this.setState({ rotate : 0 })
+      } else {
+        this.setState({ rotate : this.state.rotate + 1 })
+      }
+    }, 100)
+
+    setInterval(() => {
+      if (this.state.orbit === 360) {
+        this.setState({ orbit : 0 })
+      } else {
+        this.setState({ orbit : this.state.orbit + 0.1 })
+      }
+    }, 100)
   }
 
   render() {
@@ -49,7 +63,7 @@ class BundleDungeon extends React.Component {
           style={{ transform: [{ translate : [0, -5, getZ(this.state.rotate)] }, { rotateY : this.state.rotate }] }}
         />
 
-      { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } />) }
+      { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) }
       </View>
     );
   }
