@@ -4,9 +4,12 @@ import {
   Pano,
   Text,
   View,
-  Box
+  Box,
+  PointLight
 } from 'react-vr';
 import { connect } from 'react-redux'
+
+import BundleObject from './BundleObject'
 
 class BundleDungeon extends React.Component {
   constructor(props) {
@@ -23,7 +26,8 @@ class BundleDungeon extends React.Component {
     return (
       <View>
         <Pano source={asset('space.jpg')}/>
-        <Text
+        <PointLight decay={2} intensity={2.6}/>
+        {/* <Text
           style={{
             backgroundColor: '#777879',
             fontSize: 0.8,
@@ -35,14 +39,17 @@ class BundleDungeon extends React.Component {
             textAlignVertical: 'center',
             transform: [{translate: [0, 0, -6]}],
           }}>
-          {this.props.title}
-        </Text>
+          { this.props.title }
+        </Text> */}
 
         <Box
           dimWidth={2}
           dimDepth={2}
           dimHeight={2}
-          style={{ transform: [{ translate : [0, -5, getZ(this.state.rotate)] }, { rotateY : this.state.rotate }] }} />
+          style={{ transform: [{ translate : [0, -5, getZ(this.state.rotate)] }, { rotateY : this.state.rotate }] }}
+        />
+
+      { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } />) }
       </View>
     );
   }

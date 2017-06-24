@@ -45,7 +45,7 @@ export type Module = {
     usedExports: boolean,
     providedExports: any,
     depth: number,
-    source: string    
+    source: string
 }
 
 export type Chunk = {
@@ -55,8 +55,8 @@ export type Chunk = {
     initial: boolean,
     entry: boolean,
     extraAsync: boolean,
-    names: Array<String>,
-    files: Array<String>,
+    names: Array<string>,
+    files: Array<string>,
     hash: string,
     parents:Array<number>,
     modules: Array<Module>
