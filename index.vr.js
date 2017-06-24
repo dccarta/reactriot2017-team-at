@@ -1,34 +1,37 @@
 import React from 'react';
-import {
-  AppRegistry,
-  asset,
-  Pano,
-  Text,
-  View,
-} from 'react-vr';
+import { AppRegistry } from 'react-vr'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import createHistory from 'history/createMemoryHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import { Switch, Route } from 'react-router-dom'
 
-export default class BundleDungeon extends React.Component {
-  render() {
-    return (
-      <View>
-        <Pano source={asset('chess-world.jpg')}/>
-        <Text
-          style={{
-            backgroundColor: '#777879',
-            fontSize: 0.8,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.2,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [{translate: [0, 0, -3]}],
-          }}>
-          BundleDungeon!
-        </Text>
-      </View>
-    );
-  }
-};
+import { Main } from './src/Main'
 
-AppRegistry.registerComponent('BundleDungeon', () => BundleDungeon);
+const history = createHistory()
+
+const middleware = routerMiddleware(history)
+
+const reducers = {
+  title: (state = { value: 'BundleDungeon!' }) => state
+}
+
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(middleware)
+)
+
+const App = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Main />
+      </Switch>
+    </ConnectedRouter>
+  </Provider>
+)
+
+AppRegistry.registerComponent('BundleDungeon', () => App);
