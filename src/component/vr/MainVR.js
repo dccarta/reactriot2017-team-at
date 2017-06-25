@@ -14,7 +14,7 @@ class MainVR extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { rotate : 0, orbit : 0 }
+    this.state = { cursorColour: 'white' }
   }
 
   _adjustSizeToScale(chunkSize, minChunkSize, maxChunkSize) {
@@ -25,26 +25,9 @@ class MainVR extends React.Component {
     return newSize
   }
 
-  componentDidMount() {
-    // setInterval(() => {
-    //   if (this.state.rotate === 360) {
-    //     this.setState({ rotate : 0 })
-    //   } else {
-    //     this.setState({ rotate : this.state.rotate + 1 })
-    //   }
-    // }, 100)
-    //
-    // setInterval(() => {
-    //   if (this.state.orbit === 360) {
-    //     this.setState({ orbit : 0 })
-    //   } else {
-    //     this.setState({ orbit : this.state.orbit + 0.1 })
-    //   }
-    // }, 100)
-  }
-
   render() {
     const { chunks } = this.props
+    const { cursorColour } = this.state
     const numberOfChunks = chunks.length
     const randomSeed = getRandomArbitrary(1, 0.1 *  numberOfChunks)
 
@@ -56,13 +39,13 @@ class MainVR extends React.Component {
         <BackgroundSwitcher selectedBackground={this.props.background}/>
         <Entity gearvr-controls />
         <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
-          {/* <Entity cursor={{ fuse: false }}
-            position={{ x: 0, y: 0, z: 0 }}
+          <Entity cursor={{ fuse: true, fuseTimeout: 500 }}
+            position={{ x: 0, y: 0, z: -2 }}
             geometry={{ primitive: 'ring', radiusInner: 0.02, radiusOuter: 0.03 }}
-            material={{ color: 'black', shader: 'flat' }} /> */}
+            material={{ color: cursorColour, shader: 'flat' }}
+            events={{ mouseenter: () => this.setState({ cursorColour: 'black' }), mouseleave: () => this.setState({ cursorColour: 'white' }) }} />
         </Entity>
 
-        <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
         {/* <Entity particle-system={{ preset: 'snow' }}/> */}
         <Entity light={{ type: 'point' }}/>
 
