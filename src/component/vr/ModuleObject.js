@@ -15,7 +15,7 @@ export default class ModuleObject extends React.Component {
       xPos: positionInformation.x / 10,
       yPos: positionInformation.y / 10,
       zPos: positionInformation.z / 10,
-      colour: '#7fff00'
+      colour: getColour(module.identifier)
     }
 
     this.state = { ...this.initialState }
@@ -36,3 +36,19 @@ export default class ModuleObject extends React.Component {
 }
 
 const randomiseDirection = () => Math.random() > 0.5 ? 360 : -360
+
+const getColour = (moduleIdentifier) => {
+  if(moduleIdentifier.includes('.jsx')){
+    return '#f4a442'
+  }
+    if(moduleIdentifier.includes('.js')){
+    return '#414ff4'
+  }
+    if(moduleIdentifier.includes('.scss')){
+    return '#f44141'
+  }
+    if(moduleIdentifier.includes('.svg')){
+    return '#eef441'
+  }
+  return '#7fff00'
+}
