@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router'
 
-import MainVR from './MainVR'
-import MainOverlay from './MainOverlay'
+import MainVR from './component/vr/MainVR'
+import MainOverlay from './component/overlay/MainOverlay'
 
 class Routing extends React.Component {
 
