@@ -1,0 +1,21 @@
+{
+  "name": "bundle-dungeon-aframe",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aframe": "^0.5.0",
+    "aframe-particle-system-component": "^1.0.10",
+    "aframe-react": "^4.2.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
