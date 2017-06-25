@@ -15,7 +15,6 @@ export default class BundleObject extends React.Component {
       xPos: positionInformation.x,
       yPos: positionInformation.y,
       zPos: positionInformation.z,
-      lit: true,
       colour: '#00ffff'
     }
 
@@ -24,7 +23,7 @@ export default class BundleObject extends React.Component {
 
   render() {
     const { size } = this.props
-    const { xPos, yPos, zPos, lit, colour } = this.state
+    const { xPos, yPos, zPos, colour } = this.state
 
     return (
       <Entity
@@ -34,11 +33,8 @@ export default class BundleObject extends React.Component {
         animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
         metalness={11}
         events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />
-
     )
   }
 }
 
 const randomiseDirection = () => Math.random() > 0.5 ? 360 : -360
-
-const random = () => Math.floor(Math.random() * 50) - 25

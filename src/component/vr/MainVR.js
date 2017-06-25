@@ -35,7 +35,7 @@ class MainVR extends React.Component {
     const maxChunkSize = chunks.reduce((max, chunk) => Math.max(max, Number(chunk.size)), 0)
 
     return (
-      <Scene>
+      <Scene fog={{ type: 'exponential', color: '#AAA' }}>
         <BackgroundSwitcher selectedBackground={this.props.background}/>
         <Entity gearvr-controls />
         <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
