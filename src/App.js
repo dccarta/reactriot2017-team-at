@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
-import 'aframe';
-import 'aframe-particle-system-component';
-import { Entity, Scene } from 'aframe-react';
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+
+import Routing from './Routing'
 
 import './App.css';
 
-class App extends React.Component {
+const history = createHistory()
+
+const middleware = routerMiddleware(history)
+
+const reducers = {
+  title: (state = { value: 'BundleDungeon!' }) => state
+}
+
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(middleware)
+)
+
+class App extends Component {
   render () {
     return (
-      <Scene>
-        <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
-        <Entity particle-system={{ preset: 'snow' }}/>
-        <Entity light={{ type: 'point' }}/>
-        <Entity gltf-model={{ src: 'virtualcity.gltf' }}/>
-        <Entity text={{ value: 'Hello, WebVR!' }}/>
-      </Scene>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Routing />
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }
 
-class Overlay extends React.Component {
-  render () {
-    return (
-      <div>
-        <App />
-        <div>
-          STATUS REPORT
-        </div>
-      </div>
-    )
-  }
-}
-
-export default Overlay;
+export default App;
