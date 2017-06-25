@@ -6,7 +6,10 @@ class MainOverlay extends React.Component {
     return (
       <div>
         {this.props.title}
-        <a href='' onClick={this.props.clickBackgroundChangeButton.bind(this, 'dungeon') }>Dungeon</a>
+        <p>Choose a background: </p>
+        <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'dungeon') }>Dungeon</button>
+        <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'jungle') }>Jungle</button>
+        <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'cyber') }>Cyber</button>
       </div>
     )
   }

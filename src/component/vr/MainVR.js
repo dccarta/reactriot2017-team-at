@@ -35,7 +35,7 @@ class MainVR extends React.Component {
   render() {
     return (
       <Scene>
-        <BackgroundSwitcher selectedBackground='dungeon'/>
+        <BackgroundSwitcher selectedBackground={this.props.background}/>
 
         <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
         <Entity particle-system={{ preset: 'snow' }}/>
@@ -47,5 +47,12 @@ class MainVR extends React.Component {
   }
 
 }
+const mapStateToProps = state => (
+  { 
+    title: state.title.value,
+    assets: state.bundles.assets,
+    background: state.background.selectedBackground
+  }
+)
 
-export default connect(state => ({ title: state.title.value, assets: state.bundles.assets  }))(MainVR)
+export default connect(mapStateToProps)(MainVR)

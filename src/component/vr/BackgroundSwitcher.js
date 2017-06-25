@@ -15,7 +15,7 @@ const getSkyEntity = (selectedBackground) => {
         return <Entity primitive='a-sky' src='url(bundle-dungeon.png)' />
     }
     if(selectedBackground === 'jungle'){
-        return <Entity primitive='a-sky' src='url(bundle-in-the-jungle.png)' />
+        return <Entity primitive='a-sky' src='url(bundle-in-the-jungle.jpg)' />
     }
     return <Entity primitive='a-sky' src='url(cyber-bundle.png)' />
 }
