@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
-import BundleReducer from './reducer/BundleReducer'
 import BackgroundReducer from './reducer/BackgroundReducer'
 import StatsReducer from './reducer/StatsReducer'
 
@@ -23,7 +22,6 @@ const store = createStore(
   combineReducers({
     ...reducers,
     router: routerReducer,
-    bundles: BundleReducer,
     background: BackgroundReducer,
     stats: StatsReducer
   }),
