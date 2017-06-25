@@ -31,10 +31,14 @@ export default class BundleObject extends React.Component {
         geometry={{ primitive: 'sphere', radius: size }}
         material={{ color: colour }}
         position={{ x: xPos, y: yPos, z: zPos }}
-        animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}
-        metalness={11} />
+        animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
+        metalness={11}
+        events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />
+
     )
   }
 }
+
+const randomiseDirection = () => Math.random() > 0.5 ? 360 : -360
 
 const random = () => Math.floor(Math.random() * 50) - 25

@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
 import 'aframe-particle-system-component'
-import 'aframe-animation-component';
+import 'aframe-animation-component'
+import 'aframe-mouse-cursor-component'
 import { Entity, Scene } from 'aframe-react'
 import BackgroundSwitcher from './BackgroundSwitcher'
 import { getRandomArbitrary } from '../../webpack_parser/parser'
@@ -53,12 +54,19 @@ class MainVR extends React.Component {
     return (
       <Scene>
         <BackgroundSwitcher selectedBackground={this.props.background}/>
+        <Entity gearvr-controls />
+        <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
+          {/* <Entity cursor={{ fuse: false }}
+            position={{ x: 0, y: 0, z: 0 }}
+            geometry={{ primitive: 'ring', radiusInner: 0.02, radiusOuter: 0.03 }}
+            material={{ color: 'black', shader: 'flat' }} /> */}
+        </Entity>
 
         <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
-        <Entity particle-system={{ preset: 'snow' }}/>
+        {/* <Entity particle-system={{ preset: 'snow' }}/> */}
         <Entity light={{ type: 'point' }}/>
 
-        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}>
+        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '120000', to: '0 360 0', loop: true }}>
           { chunks.map(chunk =>
                 <BundleObject key={String(chunk.id)}
                      chunk={chunk}
@@ -70,7 +78,6 @@ class MainVR extends React.Component {
       </Scene>
     )
   }
-
 }
 
 const mapStateToProps = state => (
