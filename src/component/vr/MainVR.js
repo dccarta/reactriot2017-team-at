@@ -35,14 +35,14 @@ class MainVR extends React.Component {
     const minChunkSize = chunks.reduce((min, chunk) => Math.min(min, Number(chunk.size)), 200000000)
     const maxChunkSize = chunks.reduce((max, chunk) => Math.max(max, Number(chunk.size)), 0)
 
-    const rotation = !!chunks.selectedChunkId ? {} : { property: 'rotation', easing: 'linear', dur: '120000', to: '0 360 0', loop: true }
+    const rotation = !!selectedChunkId ? { property: 'rotation', easing: 'linear', dur: '120000', to: '0 -360 0', loop: true } : { property: 'rotation', easing: 'linear', dur: '120000', to: '0 360 0', loop: true }
 
     return (
       <Scene >
         <BackgroundSwitcher selectedBackground={this.props.background}/>
         <Entity gearvr-controls />
         <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
-          {selectedChunkId ? (
+          { selectedChunkId ? (
             <Entity geometry={{ primitive: 'plane', height: 1, width: 0.75 }}
                   position={{ x: -0.5, y: 0, z: -2 }}
                   material={{ color: 'grey', opacity: 0.5 }} />
@@ -56,10 +56,10 @@ class MainVR extends React.Component {
             events={{ mouseenter: () => this.setState({ cursorColour: 'black' }), mouseleave: () => this.setState({ cursorColour: 'white' }) }} />
         </Entity>
 
-        {/* <Entity particle-system={{ preset: 'snow' }}/> */}
+        {/* <Entity particle-system={{ preset: 'dust' }}/> */}
         <Entity light={{ type: 'point' }}/>
 
-        <Entity animation={{ ...rotation }}>
+        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '120000', to: '0 -360 0', loop: true, pauseEvents: 'mouseenter', startEvents: 'mouseleave, loaded' }}>
           {
             chunks.map(chunk =>
                 <BundleObject key={String(chunk.id)}

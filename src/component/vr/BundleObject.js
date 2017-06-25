@@ -32,12 +32,12 @@ export default class BundleObject extends React.Component {
   }
 
   _onMouseEnter() {
-    this.setState({colour: SELECTED_COLOR})
+    this.setState({colour: SELECTED_COLOR, isExpanded: true})
     this.props.handleOnMouseEnter()
   }
 
   _onMouseLeave() {
-    this.setState({colour: DESELECTED_COLOR})
+    this.setState({colour: DESELECTED_COLOR, isExpanded: false})
     this.props.handleOnMouseLeave()
   }
 
@@ -70,7 +70,7 @@ export default class BundleObject extends React.Component {
         position={{ x: xPos, y: yPos, z: zPos }}
         metalness={1}
         animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
-        events={{ click: this._onClick, mouseenter: this._onMouseEnter, mouseleave: this._onMouseLeave  }}
+        events={{ mouseenter: this._onMouseEnter, mouseleave: this._onMouseLeave  }}
       >
         {
           isExpanded ? modules.map((module, i) =>
