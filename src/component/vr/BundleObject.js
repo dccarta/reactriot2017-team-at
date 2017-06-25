@@ -15,7 +15,7 @@ export default class BundleObject extends React.Component {
       size: size / 50,
       xPos: random(),
       yPos: random(),
-      zPos: -20,
+      zPos: -40,
       yRotate: getTranslationInformationForChunk(chunks[0], 4),
       lit: true,
       colour: '#00ffff'
@@ -43,7 +43,7 @@ export default class BundleObject extends React.Component {
         // radius={size}
         material={{ color: colour }}
         position={{ x: xPos, y: yPos, z: zPos }}
-        animation={{ property: 'rotation', dur: '10000', to: '0 360 0', loop: true }}
+        animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}
         metalness={11}
         // style={{ color: colour, transform: [{ rotateY : orbit }, { rotateY: yRotate }, { translate: [xPos, yPos, zPos] }, { rotateY : rotate }] }}
       />

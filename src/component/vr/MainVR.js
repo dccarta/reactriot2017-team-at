@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
 import 'aframe-particle-system-component'
+import 'aframe-animation-component';
 import { Entity, Scene } from 'aframe-react'
 import BackgroundSwitcher from './BackgroundSwitcher'
 
@@ -41,7 +42,9 @@ class MainVR extends React.Component {
         <Entity particle-system={{ preset: 'snow' }}/>
         <Entity light={{ type: 'point' }}/>
 
-        { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) }
+        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}>
+          { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) }
+        </Entity>
       </Scene>
     )
   }
