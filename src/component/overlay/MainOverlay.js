@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Switch, Route } from 'react-router-dom'
+
+import ChunkInfo from '../info/ChunkInfo'
 
 class MainOverlay extends React.Component {
   render () {
@@ -10,6 +13,12 @@ class MainOverlay extends React.Component {
         <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'dungeon') }>Dungeon</button>
         <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'jungle') }>Jungle</button>
         <button onClick={this.props.clickBackgroundChangeButton.bind(this, 'cyber') }>Cyber</button>
+      <Switch>
+        <Route exact path='/stats-overlay/bundle/:bundle' component={({match}) => {
+          return <ChunkInfo chunkId={match.params.bundle} />
+        }}/>
+      </Switch>
+      {this.props.title}
       </div>
     )
   }
