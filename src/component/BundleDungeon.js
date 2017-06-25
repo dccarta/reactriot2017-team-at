@@ -28,13 +28,13 @@ class BundleDungeon extends React.Component {
       }
     }, 100)
 
-    setInterval(() => {
-      if (this.state.orbit === 360) {
-        this.setState({ orbit : 0 })
-      } else {
-        this.setState({ orbit : this.state.orbit + 0.1 })
-      }
-    }, 100)
+    // setInterval(() => {
+    //   if (this.state.orbit === 360) {
+    //     this.setState({ orbit : 0 })
+    //   } else {
+    //     this.setState({ orbit : this.state.orbit + 0.1 })
+    //   }
+    // }, 100)
   }
 
   render() {

@@ -36,7 +36,7 @@ function init(bundle, parent, options) {
     nativeModules: [teleportModule],
     ...options,
   });
-    teleportModule.setCamera(vr.player.camera);
+  teleportModule.setCamera(vr.player.camera);
 
   vr.render = function() {
     // Any custom behavior you want to perform on each frame goes here
