@@ -8,6 +8,7 @@ import { Entity, Scene } from 'aframe-react'
 import BackgroundSwitcher from './BackgroundSwitcher'
 import { getRandomArbitrary } from '../../webpack_parser/parser'
 import { selectChunk, deselectChunk } from '../../actions/ChunkActions'
+import ChunkInfo from '../info/ChunkInfo'
 
 import BundleObject from './BundleObject'
 
@@ -42,13 +43,7 @@ class MainVR extends React.Component {
         <BackgroundSwitcher selectedBackground={this.props.background}/>
         <Entity gearvr-controls />
         <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
-          { selectedChunkId ? (
-            <Entity geometry={{ primitive: 'plane', height: 1, width: 0.75 }}
-                  position={{ x: -0.5, y: 0, z: -2 }}
-                  material={{ color: 'grey', opacity: 0.5 }} />
-          ) : (
-            null
-          )}
+          { selectedChunkId ? <ChunkInfo chunkId={selectedChunkId} /> : null }
           <Entity cursor={{ fuse: true, fuseTimeout: 500 }}
             position={{ x: 0, y: 0, z: -2 }}
             geometry={{ primitive: 'ring', radiusInner: 0.02, radiusOuter: 0.03 }}
