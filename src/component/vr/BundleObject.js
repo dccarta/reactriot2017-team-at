@@ -15,7 +15,6 @@ export default class BundleObject extends React.Component {
       xPos: positionInformation.x,
       yPos: positionInformation.y,
       zPos: positionInformation.z,
-      lit: true,
       colour: '#00ffff'
     }
 
@@ -24,7 +23,8 @@ export default class BundleObject extends React.Component {
 
   render() {
     const { size } = this.props
-    const { xPos, yPos, zPos, lit, colour, isExpanded } = this.state
+
+    const { xPos, yPos, zPos, colour, isExpanded } = this.state
 
     const returnBaseEntity = () => {<Entity
         geometry={{ primitive: 'sphere', radius: size }}
@@ -49,5 +49,3 @@ export default class BundleObject extends React.Component {
 
 
 const randomiseDirection = () => Math.random() > 0.5 ? 360 : -360
-
-const random = () => Math.floor(Math.random() * 50) - 25
