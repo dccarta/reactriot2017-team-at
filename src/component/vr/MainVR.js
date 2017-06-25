@@ -1,8 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import 'aframe'
 import 'aframe-particle-system-component'
 import { Entity, Scene } from 'aframe-react'
 import BackgroundSwitcher from './BackgroundSwitcher'
+
+import BundleObject from './BundleObject'
 
 class MainVR extends React.Component {
   constructor(props) {
@@ -20,11 +23,11 @@ class MainVR extends React.Component {
         <Entity particle-system={{ preset: 'snow' }}/>
         <Entity light={{ type: 'point' }}/>
 
-        {/* { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) } */}
+        { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) }
       </Scene>
     )
   }
 
 }
 
-export default MainVR
+export default connect(state => ({ title: state.title.value, assets: state.bundles.assets  }))(MainVR)
