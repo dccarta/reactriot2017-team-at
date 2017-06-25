@@ -45,7 +45,7 @@ const getColour = (moduleIdentifier) => {
     return '#414ff4'
   }
     if(moduleIdentifier.includes('.scss')){
-    return '#f44141'
+    return '#41d0f4'
   }
     if(moduleIdentifier.includes('.svg')){
     return '#eef441'

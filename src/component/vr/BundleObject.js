@@ -9,6 +9,7 @@ import { getPositionInformationForChunk } from '../../webpack_parser/parser'
 
 const SELECTED_COLOR = '#8a2be2'
 const DESELECTED_COLOR = '#00ffff'
+const MEGA_BUNDLE_COLOR = '#f44141'
 
 export default class BundleObject extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class BundleObject extends React.Component {
       xPos: positionInformation.x,
       yPos: positionInformation.y,
       zPos: positionInformation.z,
-      colour: DESELECTED_COLOR,
+      colour: chunk.size > 600000 ? MEGA_BUNDLE_COLOR : DESELECTED_COLOR,
       isExpanded: false
     }
 
@@ -37,7 +38,7 @@ export default class BundleObject extends React.Component {
   }
 
   _onMouseLeave() {
-    this.setState({colour: DESELECTED_COLOR})
+    this.setState({colour: this.initialState.colour})
     this.props.handleOnMouseLeave()
   }
 
@@ -51,6 +52,11 @@ export default class BundleObject extends React.Component {
     const oldRange = maxChunkSize - minChunkSize
     const newSize = (((chunkSize - minChunkSize) * newRange) / oldRange ) + newMin
     return newSize
+  }
+
+  _setColour(size){
+    const colour = (size > 600000 ? DESELECTED_COLOR : MEGA_BUNDLE_COLOR )
+    this.setState({colour: colour})
   }
 
   render() {
