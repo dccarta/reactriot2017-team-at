@@ -4,15 +4,22 @@ import 'aframe-particle-system-component';
 import { Entity, Scene } from 'aframe-react';
 
 class MainVR extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { rotate : 0, orbit : 0 }
+  }
 
   render() {
     return (
       <Scene>
+        <Entity primitive='a-sky' src='url(scene.png)' />
+
         <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
         <Entity particle-system={{ preset: 'snow' }}/>
         <Entity light={{ type: 'point' }}/>
-        <Entity gltf-model={{ src: 'virtualcity.gltf' }}/>
-        <Entity text={{ value: 'Hello, WebVR!' }}/>
+
+        {/* { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) } */}
       </Scene>
     )
   }

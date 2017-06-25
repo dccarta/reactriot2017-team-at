@@ -9,7 +9,6 @@ import Routing from './Routing'
 import './App.css';
 
 const history = createHistory()
-
 const middleware = routerMiddleware(history)
 
 const reducers = {
