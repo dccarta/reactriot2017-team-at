@@ -1,7 +1,8 @@
 import React from 'react'
-import 'aframe';
-import 'aframe-particle-system-component';
-import { Entity, Scene } from 'aframe-react';
+import 'aframe'
+import 'aframe-particle-system-component'
+import { Entity, Scene } from 'aframe-react'
+import BackgroundSwitcher from './BackgroundSwitcher'
 
 class MainVR extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class MainVR extends React.Component {
   render() {
     return (
       <Scene>
-        <Entity primitive='a-sky' src='url(scene.png)' />
+        <BackgroundSwitcher selectedBackground='dungeon'/>
 
         <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }}/>
         <Entity particle-system={{ preset: 'snow' }}/>
