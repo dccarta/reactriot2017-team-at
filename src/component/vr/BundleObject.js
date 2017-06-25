@@ -9,11 +9,9 @@ export default class BundleObject extends React.Component {
   constructor(props) {
     super(props)
     const { chunk, totalNumberOfChunks, randomSeed } = props
-    const { id, size } = chunk
-    const positionInformation = getPositionInformationForChunk(Number(id), totalNumberOfChunks, randomSeed )
+    const positionInformation = getPositionInformationForChunk(Number(chunk.id), totalNumberOfChunks, randomSeed )
 
     this.initialState = {
-      size: Number(size) / 100000,
       xPos: positionInformation.x,
       yPos: positionInformation.y,
       zPos: positionInformation.z,
@@ -25,8 +23,8 @@ export default class BundleObject extends React.Component {
   }
 
   render() {
-    const { chunk, rotate, orbit } = this.props
-    const { size, xPos, yPos, zPos, yRotate, lit, colour } = this.state
+    const { size } = this.props
+    const { xPos, yPos, zPos, lit, colour } = this.state
 
     return (
       <Entity

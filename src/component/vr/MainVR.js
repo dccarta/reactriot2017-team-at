@@ -16,6 +16,14 @@ class MainVR extends React.Component {
     this.state = { rotate : 0, orbit : 0 }
   }
 
+  _adjustSizeToScale(chunkSize, minChunkSize, maxChunkSize) {
+    const newMin = 1
+    const newRange = 15
+    const oldRange = maxChunkSize - minChunkSize
+    const newSize = (((chunkSize - minChunkSize) * newRange) / oldRange ) + newMin
+    return newSize
+  }
+
   componentDidMount() {
     // setInterval(() => {
     //   if (this.state.rotate === 360) {
@@ -35,8 +43,13 @@ class MainVR extends React.Component {
   }
 
   render() {
-    const numberOfChunks = this.props.chunks.length
+    const { chunks } = this.props
+    const numberOfChunks = chunks.length
     const randomSeed = getRandomArbitrary(1, 0.1 *  numberOfChunks)
+
+    const minChunkSize = chunks.reduce((min, chunk) => Math.min(min, Number(chunk.size)), 200000000)
+    const maxChunkSize = chunks.reduce((max, chunk) => Math.max(max, Number(chunk.size)), 0)
+
     return (
       <Scene>
         <BackgroundSwitcher selectedBackground={this.props.background}/>
@@ -46,11 +59,10 @@ class MainVR extends React.Component {
         <Entity light={{ type: 'point' }}/>
 
         <Entity animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}>
-          { this.props.chunks.map(chunk =>
+          { chunks.map(chunk =>
                 <BundleObject key={String(chunk.id)}
                      chunk={chunk}
-                     rotate={this.state.rotate}
-                     orbit={this.state.orbit}
+                     size={this._adjustSizeToScale(Number(chunk.size), minChunkSize, maxChunkSize)}
                      totalNumberOfChunks={numberOfChunks}
                      randomSeed={randomSeed} />)
           }
@@ -60,6 +72,7 @@ class MainVR extends React.Component {
   }
 
 }
+
 const mapStateToProps = state => (
   {
     title: state.title.value,
