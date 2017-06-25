@@ -24,20 +24,29 @@ export default class BundleObject extends React.Component {
 
   render() {
     const { size } = this.props
-    const { xPos, yPos, zPos, lit, colour } = this.state
+    const { xPos, yPos, zPos, lit, colour, isExpanded } = this.state
 
-    return (
-      <Entity
+    const returnBaseEntity = () => {<Entity
         geometry={{ primitive: 'sphere', radius: size }}
         material={{ color: colour }}
         position={{ x: xPos, y: yPos, z: zPos }}
         animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
         metalness={11}
-        events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />
+        events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />}
 
+    const returnExpandedView = () => {
+      //CARTER
+    }
+
+    const switchToExpandedViewWhenAppropriate = isExpanded => 
+      isExpanded ? returnExpandedView : returnBaseEntity
+
+    return (
+      {switchToExpandedViewWhenAppropriate(isExpanded)}
     )
   }
 }
+
 
 const randomiseDirection = () => Math.random() > 0.5 ? 360 : -360
 
