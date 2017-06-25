@@ -1,4 +1,4 @@
-# reactriot2017-team-at - Bundle Dungeon
+# ReactRiot2017 - Team AutoTrader - Bundle Dungeon
 ## VR Webpack Stats Visualiser
 
 ### Introduction
@@ -17,5 +17,9 @@ You can then open the Bundle Dungeon app and click the "Open File" button locate
 
 You should now see multiple objects floating through the virtual space. These are all of the different chunks in your Webpack!
 
+You can also change the background with the three change background buttons in the top left of the screen.
 
+The mouse can be used to look around, and WASD movement controls are enabled. Clicking or looking at any of the objects will give you more information about that chunk, and more objects will appear, which represent the modules within that chunk.
+
+If you have access to a Google Cardboard headset, we do support it once you have loaded the data. Load the app on your smartphone, load some data (your own or our default), and press the Cardboard logo located at the top right of your screen. Put the device in the headset, and voila! You are living the dream.
 
