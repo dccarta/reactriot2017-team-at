@@ -17,7 +17,6 @@ class MainOverlay extends React.Component {
         <Route exact path='/bundle/:bundle' component={({match}) => {
           return <ChunkInfo chunkId={match.params.bundle} />
         }}/>
-      {this.props.title}
       </div>
     )
   }
