@@ -13,7 +13,7 @@ export default class BundleObject extends React.Component {
 
     this.initialState = {
       size: size / 50,
-      xPos: 0,
+      xPos: random(),
       yPos: random(),
       zPos: -20,
       yRotate: getTranslationInformationForChunk(chunks[0], 4),
@@ -42,8 +42,8 @@ export default class BundleObject extends React.Component {
         geometry={{ primitive: 'sphere', radius: size }}
         // radius={size}
         material={{ color: colour }}
-        position={{ x: random(), y: yPos, z: zPos }}
-        animation={{ property: 'rotation', dur: '10000', fill: 'forwards', to: '0 360 0', loop: true }}
+        position={{ x: xPos, y: yPos, z: zPos }}
+        animation={{ property: 'rotation', dur: '10000', to: '0 360 0', loop: true }}
         metalness={11}
         // style={{ color: colour, transform: [{ rotateY : orbit }, { rotateY: yRotate }, { translate: [xPos, yPos, zPos] }, { rotateY : rotate }] }}
       />
@@ -53,4 +53,4 @@ export default class BundleObject extends React.Component {
   }
 }
 
-const random = () => Math.floor(Math.random() * 100) - 50
+const random = () => Math.floor(Math.random() * 50) - 25
