@@ -1,0 +1,1 @@
+export const LOAD_STATS_FILE_TEXT = 'LOAD_STATS_FILE_TEXT'
