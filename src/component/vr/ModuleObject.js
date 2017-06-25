@@ -5,17 +5,17 @@ import { Entity } from 'aframe-react'
 
 import { getPositionInformationForChunk } from '../../webpack_parser/parser'
 
-export default class BundleObject extends React.Component {
+export default class ModuleObject extends React.Component {
   constructor(props) {
     super(props)
-    const { chunk, totalNumberOfChunks, randomSeed } = props
-    const positionInformation = getPositionInformationForChunk(Number(chunk.id), totalNumberOfChunks, randomSeed )
+    const { module, moduleNumber, totalNumberOfModules, randomSeed } = props
+    const positionInformation = getPositionInformationForChunk(moduleNumber, totalNumberOfModules, randomSeed )
 
     this.initialState = {
-      xPos: positionInformation.x,
-      yPos: positionInformation.y,
-      zPos: positionInformation.z,
-      colour: '#00ffff'
+      xPos: positionInformation.x / 10,
+      yPos: positionInformation.y / 10,
+      zPos: positionInformation.z / 10,
+      colour: '#7fff00'
     }
 
     this.state = { ...this.initialState }
@@ -30,9 +30,7 @@ export default class BundleObject extends React.Component {
         geometry={{ primitive: 'sphere', radius: size }}
         material={{ color: colour }}
         position={{ x: xPos, y: yPos, z: zPos }}
-        animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
-        metalness={11}
-        events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />
+        metalness={1} />
     )
   }
 }

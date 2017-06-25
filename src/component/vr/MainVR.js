@@ -30,13 +30,15 @@ class MainVR extends React.Component {
     const { chunks, selectedChunkId, selectChunk, deselectChunk } = this.props
     const { cursorColour } = this.state
     const numberOfChunks = chunks.length
-    const randomSeed = getRandomArbitrary(1, 0.1 *  numberOfChunks)
+    const randomSeed = getRandomArbitrary(1, 0.1 * numberOfChunks)
 
     const minChunkSize = chunks.reduce((min, chunk) => Math.min(min, Number(chunk.size)), 200000000)
     const maxChunkSize = chunks.reduce((max, chunk) => Math.max(max, Number(chunk.size)), 0)
 
+    const rotation = !!chunks.selectedChunkId ? {} : { property: 'rotation', easing: 'linear', dur: '120000', to: '0 360 0', loop: true }
+
     return (
-      <Scene fog={{ type: 'exponential', color: '#AAA' }}>
+      <Scene >
         <BackgroundSwitcher selectedBackground={this.props.background}/>
         <Entity gearvr-controls />
         <Entity camera look-controls hmdEnabled wasd-controls mouse-cursor>
@@ -56,8 +58,10 @@ class MainVR extends React.Component {
 
         {/* <Entity particle-system={{ preset: 'snow' }}/> */}
         <Entity light={{ type: 'point' }}/>
-<Entity>
-          { chunks.map(chunk =>
+
+        <Entity animation={{ ...rotation }}>
+          {
+            chunks.map(chunk =>
                 <BundleObject key={String(chunk.id)}
                      chunk={chunk}
                      size={this._adjustSizeToScale(Number(chunk.size), minChunkSize, maxChunkSize)}

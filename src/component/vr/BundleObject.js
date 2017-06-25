@@ -2,6 +2,8 @@ import React from 'react'
 import 'aframe'
 import 'aframe-animation-component'
 import { Entity } from 'aframe-react'
+import { getRandomArbitrary } from '../../webpack_parser/parser'
+import ModuleObject from './ModuleObject'
 
 import { getPositionInformationForChunk } from '../../webpack_parser/parser'
 
@@ -43,21 +45,45 @@ export default class BundleObject extends React.Component {
     this.setState((state) => ({ isExpanded: !state.isExpanded }))
   }
 
+  _adjustSizeToScale(chunkSize, minChunkSize, maxChunkSize) {
+    const newMin = 1
+    const newRange = 15
+    const oldRange = maxChunkSize - minChunkSize
+    const newSize = (((chunkSize - minChunkSize) * newRange) / oldRange ) + newMin
+    return newSize
+  }
+
   render() {
-    const { size } = this.props
+    const { size, chunk : { modules } } = this.props
+    const numberOfModules = modules.length
+    const randomSeed = getRandomArbitrary(1, 0.1 * numberOfModules)
+
+    const minModuleSize = modules.reduce((min, module) => Math.min(min, Number(module.size)), 20000000)
+    const maxModuleSize = modules.reduce((max, module) => Math.max(max, Number(module.size)), 0)
+
     const { xPos, yPos, zPos, colour, isExpanded } = this.state
 
-    const baseEntity = <Entity
+    return (
+      <Entity
         geometry={{ primitive: 'sphere', radius: size }}
-        material={{ color: colour }}
+        material={{ color: colour, wireframe: isExpanded }}
         position={{ x: xPos, y: yPos, z: zPos }}
+        metalness={1}
         animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
-        metalness={11}
-        events={{ click: this._onClick, mouseenter: this._onMouseEnter, mouseleave: this._onMouseLeave  }} />
-
-    const expandedView = null
-
-    return isExpanded ? expandedView : baseEntity
+        events={{ click: this._onClick, mouseenter: this._onMouseEnter, mouseleave: this._onMouseLeave  }}
+      >
+        {
+          isExpanded ? modules.map((module, i) =>
+            <ModuleObject key={i}
+               module={module}
+               moduleNumber={i + 1}
+               size={this._adjustSizeToScale(Number(module.size), minModuleSize, maxModuleSize) / 10}
+               totalNumberOfModules={numberOfModules}
+               randomSeed={randomSeed}
+            />) : null
+        }
+      </Entity>
+    )
   }
 }
 
