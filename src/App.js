@@ -6,6 +6,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 
 import BackgroundReducer from './reducer/BackgroundReducer'
 import StatsReducer from './reducer/StatsReducer'
+import ChunkReducer from './reducer/ChunkReducer'
 
 import Routing from './Routing'
 
@@ -23,6 +24,7 @@ const store = createStore(
     ...reducers,
     router: routerReducer,
     background: BackgroundReducer,
+    chunks: ChunkReducer,
     stats: StatsReducer
   }),
   applyMiddleware(middleware)
