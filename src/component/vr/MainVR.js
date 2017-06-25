@@ -54,7 +54,7 @@ class MainVR extends React.Component {
         {/* <Entity particle-system={{ preset: 'dust' }}/> */}
         <Entity light={{ type: 'point' }}/>
 
-        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '120000', to: '0 -360 0', loop: true, pauseEvents: 'mouseenter', startEvents: 'mouseleave, loaded' }}>
+        <Entity animation={{ property: 'rotation', easing: 'linear', dur: '120000', to: '0 360 0', loop: true, pauseEvents: 'mouseenter', startEvents: 'mouseleave, loaded' }}>
           {
             chunks.map(chunk =>
                 <BundleObject key={String(chunk.id)}
