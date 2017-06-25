@@ -45,7 +45,7 @@ class ChunkInfo extends React.Component {
 }
 
 ChunkInfo.propTypes = {
-  chunkId: PropTypes.string.isRequired,
+  chunkId: PropTypes.number.isRequired,
   chunk: PropTypes.object.isRequired,
   chunkChildren: PropTypes.arrayOf(PropTypes.string).isRequired
 }
