@@ -15,8 +15,7 @@ export default class BundleObject extends React.Component {
       xPos: positionInformation.x,
       yPos: positionInformation.y,
       zPos: positionInformation.z,
-      colour: '#00ffff',
-      isExpanded: false
+      colour: '#00ffff'
     }
 
     this.state = { ...this.initialState }
@@ -24,20 +23,17 @@ export default class BundleObject extends React.Component {
 
   render() {
     const { size } = this.props
+    const { xPos, yPos, zPos, colour } = this.state
 
-    const { xPos, yPos, zPos, colour, isExpanded } = this.state
-
-    const baseEntity = <Entity
+    return (
+      <Entity
         geometry={{ primitive: 'sphere', radius: size }}
         material={{ color: colour }}
         position={{ x: xPos, y: yPos, z: zPos }}
         animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: `0 ${randomiseDirection()} 0`, loop: true }}
         metalness={11}
-        events={{ click: () => this.setState({ isExpanded: !isExpanded }) }} />
-
-    const expandedView = null
-
-    return isExpanded ? expandedView : baseEntity
+        events={{ click: () => this.setState({ colour: '#8a2be2' }) }} />
+    )
   }
 }
 
