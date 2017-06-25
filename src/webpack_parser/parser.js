@@ -11,5 +11,5 @@ export const getPositionInformationForChunk = (chunkNumber, totalNumberOfChunks,
 }
 
 export const getRandomArbitrary = (min, max) => {
-  return Math.random() * (max - min) + min;
+  return Math.random() * (max - min) + min
 }

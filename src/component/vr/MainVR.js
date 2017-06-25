@@ -36,7 +36,7 @@ class MainVR extends React.Component {
 
   render() {
     const numberOfChunks = this.props.chunks.length
-    const randomSeed = getRandomArbitrary(numberOfChunks, 5 * numberOfChunks)
+    const randomSeed = getRandomArbitrary(1, 0.1 *  numberOfChunks)
     return (
       <Scene>
         <BackgroundSwitcher selectedBackground={this.props.background}/>
