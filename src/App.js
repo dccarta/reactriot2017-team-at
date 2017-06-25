@@ -5,7 +5,11 @@ import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import BundleReducer from './reducer/BundleReducer'
+<<<<<<< HEAD
 import BackgroundReducer from './reducer/BackgroundReducer'
+=======
+import StatsReducer from './reducer/StatsReducer'
+>>>>>>> 5de1e7cc962ea650afcabe1deb5093670f264b80
 
 import Routing from './Routing'
 
@@ -23,7 +27,8 @@ const store = createStore(
     ...reducers,
     router: routerReducer,
     bundles: BundleReducer,
-    background: BackgroundReducer
+    background: BackgroundReducer,
+    stats: StatsReducer
   }),
   applyMiddleware(middleware)
 )
