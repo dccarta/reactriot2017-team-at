@@ -1,22 +1,20 @@
 import React from 'react'
+import 'aframe'
+import 'aframe-animation-component'
+import { Entity } from 'aframe-react'
 
-import 'aframe';
-import 'aframe-animation-component';
-import { Entity } from 'aframe-react';
-
-import { getTranslationInformationForChunk } from '../../webpack_parser/parser'
+import { getPositionInformationForChunk } from '../../webpack_parser/parser'
 
 export default class BundleObject extends React.Component {
   constructor(props) {
     super(props)
-    const { name, size, chunks, chunkNames, emitted } = props
-
+    const { name, size, chunks, chunkNames, emitted, totalNumberOfChunks, randomSeed } = props
+    const positionInformation = getPositionInformationForChunk(chunks[0], totalNumberOfChunks, randomSeed )
     this.initialState = {
       size: size / 50,
-      xPos: random(),
-      yPos: random(),
-      zPos: -40,
-      yRotate: getTranslationInformationForChunk(chunks[0], 4),
+      xPos: positionInformation.x,
+      yPos: positionInformation.y,
+      zPos: positionInformation.z,
       lit: true,
       colour: '#00ffff'
     }

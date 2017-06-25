@@ -1,7 +1,15 @@
 export const getListOfBundles = jsonOutput => jsonOutput.assets
 
-export const getTranslationInformationForChunk = (chunkNumber, totalNumberOfChunks) => {
-    const degreeIncrement: number = 180 / totalNumberOfChunks
+export const getPositionInformationForChunk = (chunkNumber, totalNumberOfChunks, randomSeed) => {
+    //randomseed MUST be greater than totalNumberofChunks
+    return {
+        x: randomSeed - getRandomArbitrary(-20, 20) - (randomSeed * chunkNumber / totalNumberOfChunks),
+        y: randomSeed - getRandomArbitrary(-20, 20) - (randomSeed * chunkNumber / totalNumberOfChunks),
+        z: randomSeed - getRandomArbitrary(-20, 20) - (randomSeed * chunkNumber / totalNumberOfChunks)
+    }
 
-    return chunkNumber * degreeIncrement
+}
+
+export const getRandomArbitrary = (min, max) => {
+  return Math.random() * (max - min) + min;
 }

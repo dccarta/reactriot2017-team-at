@@ -5,6 +5,7 @@ import 'aframe-particle-system-component'
 import 'aframe-animation-component';
 import { Entity, Scene } from 'aframe-react'
 import BackgroundSwitcher from './BackgroundSwitcher'
+import { getRandomArbitrary } from '../../webpack_parser/parser'
 
 import BundleObject from './BundleObject'
 
@@ -34,6 +35,7 @@ class MainVR extends React.Component {
   }
 
   render() {
+    const randomSeed = getRandomArbitrary(this.props.assets.length, 5 * this.props.assets.length)
     return (
       <Scene>
         <BackgroundSwitcher selectedBackground={this.props.background}/>
@@ -43,7 +45,13 @@ class MainVR extends React.Component {
         <Entity light={{ type: 'point' }}/>
 
         <Entity animation={{ property: 'rotation', easing: 'linear', dur: '60000', to: '0 360 0', loop: true }}>
-          { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]} { ...bundle } rotate={this.state.rotate} orbit={this.state.orbit} />) }
+          { this.props.assets.map(bundle => <BundleObject key={bundle.chunks[0]}
+           { ...bundle }
+           rotate={this.state.rotate}
+           orbit={this.state.orbit}
+           totalNumberOfChunks={this.props.assets.length}
+           randomSeed={randomSeed}
+          />) }
         </Entity>
       </Scene>
     )
