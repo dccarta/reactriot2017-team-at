@@ -31,9 +31,14 @@ class OpenStatsFile extends React.Component {
         { this.props.isLoaded ? (
           <span>LOADED!</span>
         ) : (
+          <div>
           <button onClick={() => this.fileInput.click()}>
             Open
           </button>
+          <button onClick={this.props.loadDefaultData}>
+            Use Default data
+          </button>
+          </div>
         )}
         <input ref={(ref) => this.fileInput = ref}
                 onChange={(e) => this._handleFileInputChange(e)}
@@ -46,7 +51,11 @@ class OpenStatsFile extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loadStatsFileText: (text) => dispatch(StatsActions.loadStatsFileText(text))
+  loadStatsFileText: (text) => dispatch(StatsActions.loadStatsFileText(text)),
+  loadDefaultData: () => fetch('sample-stats-main.json')
+            .then(response => response.text())
+            .then(text => JSON.parse(text))
+            .then(json => dispatch(StatsActions.loadStatsFileText(json)))
 })
 
 const mapStateToProps = (state) => ({
@@ -54,3 +63,4 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OpenStatsFile)
+
